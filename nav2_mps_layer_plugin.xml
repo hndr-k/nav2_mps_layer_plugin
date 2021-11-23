@@ -1,0 +1,5 @@
+<library path="nav2_mps_layer_plugin">
+  <class name="nav2_mps_layer_plugin/MPSLayer" type="nav2_mps_layer_plugin::MPSLayer" base_class_type="nav2_costmap_2d::Layer">
+    <description>This is a costmap plugin to integrate RCLL MPS into a costmap</description>
+  </class>
+</library>
