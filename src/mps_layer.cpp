@@ -28,7 +28,7 @@ void MPSLayer::incomingPoses(
 void MPSLayer::updateBounds(double /*robot_x*/, double /*robot_y*/,
                             double /*robot_yaw*/, double *min_x, double *min_y,
                             double *max_x, double *max_y) {
-  if (test_bounds_) {
+
     last_min_x_ = *min_x;
     last_min_y_ = *min_y;
     last_max_x_ = *max_x;
@@ -38,7 +38,7 @@ void MPSLayer::updateBounds(double /*robot_x*/, double /*robot_y*/,
     *min_y = std::numeric_limits<double>::lowest();
     *max_x = std::numeric_limits<double>::max();
     *max_y = std::numeric_limits<double>::max();
-  } else {
+  /*} else {
     double tmp_min_x = last_min_x_;
     double tmp_min_y = last_min_y_;
     double tmp_max_x = last_max_x_;
@@ -51,7 +51,7 @@ void MPSLayer::updateBounds(double /*robot_x*/, double /*robot_y*/,
     *min_y = std::min(tmp_min_y, *min_y);
     *max_x = std::max(tmp_max_x, *max_x);
     *max_y = std::max(tmp_max_y, *max_y);
-  }
+  }*/
 }
 
 void MPSLayer::activate() {}
