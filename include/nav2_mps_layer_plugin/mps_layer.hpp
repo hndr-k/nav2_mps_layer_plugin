@@ -38,7 +38,8 @@ public:
 
   geometry_msgs::msg::PoseArray mps_poses_;
   rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr mps_poses_sub_;
-  std::string map_topic_;
+  std::string mps_topic_;
+  double tranform_tolerance_;
   bool mps_poses_received_{false};
   bool test_bounds_{false};
   double last_min_x_, last_min_y_, last_max_x_, last_max_y_;

@@ -10,8 +10,12 @@ void MPSLayer::onInitialize() {
   if (!node) {
     throw std::runtime_error{"Failed to lock node"};
   }
+  declareParameter("mps_topic", rclcpp::ParameterValue("/off_field/mps"));
+  declareParameter("transform_tolerance", rclcpp::ParameterValue(0.1));
+  node->get_parameter(name_ + "." + "mps_topic", mps_topic_);
+  node->get_parameter(name_ + "." + "transform_tolerance", tranform_tolerance_);
   mps_poses_sub_ = node->create_subscription<geometry_msgs::msg::PoseArray>(
-      "/off_field/mps_infos", 1,
+      mps_topic_, 1,
       std::bind(&MPSLayer::incomingPoses, this, std::placeholders::_1));
 }
 void MPSLayer::incomingPoses(
@@ -56,22 +60,8 @@ void MPSLayer::deactivate() {}
 
 void MPSLayer::updateCosts(nav2_costmap_2d::Costmap2D &master_grid, int min_i,
                            int min_j, int max_i, int max_j) {
-  RCLCPP_INFO(rclcpp::get_logger("mpslayer"), "Pose added");
+  RCLCPP_INFO(rclcpp::get_logger("mpslayer"), "Pose added_new");
   unsigned char *master_array = master_grid.getCharMap();
-  /*geometry_msgs::msg::PoseArray message;
-  geometry_msgs::msg::Pose pose2;
-
-  double x = 9.5;
-  for (int i = 0; i < 4; i++) {
-    pose2.position.x = x + 0.5;
-    pose2.position.y = 5.0;
-    pose2.position.z = 0.0;
-    pose2.orientation.x = 0.0;
-    pose2.orientation.y = 0.0;
-    pose2.orientation.z = 0.0;
-    pose2.orientation.w = 0.0;
-    message.poses.push_back(pose2);
-  }*/
   for (auto &pose : mps_poses_.poses) {
     unsigned int index = master_grid.getIndex(pose.position.x, pose.position.y);
 
